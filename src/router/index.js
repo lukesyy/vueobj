@@ -62,7 +62,7 @@ export const indexRouters = [
   },
 
 ]
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/login',
@@ -90,3 +90,6 @@ export default new Router({
     },
   ]
 })
+
+
+export default router
