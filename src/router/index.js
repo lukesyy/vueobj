@@ -90,6 +90,7 @@ const router = new Router({
     },
   ]
 })
+//全局守卫
 
 
 export default router
