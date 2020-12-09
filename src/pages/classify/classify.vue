@@ -3,7 +3,7 @@
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right" class="mbx">
       <el-breadcrumb-item :to="{ path: '/index' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>管理员</el-breadcrumb-item>
+      <el-breadcrumb-item>商品分类</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 添加 -->
     <el-button type="primary" @click="willAdd">添加</el-button>

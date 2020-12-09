@@ -3,9 +3,10 @@
     <div class="wrap">
       <div class="box">
         <h2>登录</h2>
-        <p><input type="text" :value="name"/></p>
-        <p><input type="text" :value="pwd"/> </p>
-        <el-button type="primary" round @click="goIndex">登录</el-button>
+        <p><input type="text" v-model="user.username"/></p>
+        <p><input type="text" v-model="user.password"  @keyup.enter="goIndex"/> </p>
+        <el-button type="primary" round @click="goIndex" >登录</el-button>
+       
       </div>
     </div>
   </div>
@@ -13,17 +14,33 @@
 
 <script>
 import { postlogin } from "../util/request";
+import {mapActions,mapGetters} from 'vuex'
 export default {
 data() {
     return {
-        name:"",
-        pwd:'',
+       user: {
+        username: "",
+        password: "",
+      },
     }
 },
     methods: {
+      ...mapActions({
+getuserMsg:'login/getuserMsg'
+      }),
         goIndex(){
-           
-             this.$router.push('/index')
+           postlogin(this.user).then(res=>{
+            this.$router.push('index/home')
+if(res.data.code==200){
+  
+// this.getuserMsg(res.data.list)
+  
+  console.log(res);
+}else{
+   alert(res.data.msg)
+}
+           })
+             
         }
     },
 };

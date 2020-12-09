@@ -213,6 +213,64 @@ export const reqcateDel=(id)=>{
         data:id
     })
 }
+//=======================================商品管理=====================================
+
+// 商品管理列表
+export const reqgoodsList = (istree) => {
+    return axios({
+        url: baseUrl + '/api/goodslist',
+        method: 'get',
+        params:istree
+    })
+
+}
+//商品管理添加
+export const reqgoodsAdd = (data) => {
+      // 由于上传的是文件 所以需要用qs转一下
+      var form  = new FormData()
+      // {pid:1,goodsname:'s',img,status}
+      for(var i in data){
+          form.append(i,data[i])
+      }
+    return axios({
+        url: baseUrl + '/api/goodsadd',
+        method: 'post',
+        data:form
+    })
+
+}
+//商品管理修改
+
+export const setgoodslise = (str) => {
+    var form  = new FormData()
+    // {pid:1,goodsname:'s',img,status}
+    for(var i in str){
+        form.append(i,str[i])
+    }
+    return axios({
+        url: baseUrl + '/api/goodsedit',
+        method: 'post',
+        data:form
+    })
+
+}
+// 商品管理删除
+export const reqgoodsDel=(id)=>{
+    return axios({
+        url:baseUrl+'/api/goodsdelete',
+        method:'post',
+        data:id
+    })
+}
+
+//获取一条商品数据
+export const getGoodsOne = (id) => {
+    return axios({
+        url: baseUrl + "/api/goodsinfo",
+        method: 'get',
+        params:id
+    })
+}
 //=======================================商品添加=====================================
 
 // 商品分类列表
@@ -256,11 +314,12 @@ export const reqSpecDel=(id)=>{
 
 
 //==============================登录=====================================
+//管理员登录 
 
-export const postlogin=(obj)=>{
+export const postlogin=(data)=>{
     return axios({
-        url:baseUrl+'/api//api/login',
+        url:baseUrl+'/api/userlogin',
         method:'post',
-        data:obj
+        data:data
     })
 }

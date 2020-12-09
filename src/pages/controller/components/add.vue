@@ -86,10 +86,10 @@ export default {
 
       reqUserAdd(this.form).then((res) => {
         
-          if(this.userlist.length%2 == 0){
+          
  
         this.mysetTotal()
-       }
+       
         getTotal()
         this. reqGetUser();
         this.hide();

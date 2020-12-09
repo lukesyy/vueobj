@@ -8,6 +8,7 @@ import  user from './modules/comtroller.js'
 import  cate from './modules/cate.js'
 import  spec from './modules/spec.js'
 import  login from './modules/login.js'
+import  goods from './modules/goods.js'
 export default new Vuex.Store({
     modules: {
         menu,
@@ -15,7 +16,8 @@ export default new Vuex.Store({
         user,
         cate,
         spec,
-        login
+        login,
+        goods
    }
 })
 
