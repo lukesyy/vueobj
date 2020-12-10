@@ -33,11 +33,12 @@ getuserMsg:'login/getuserMsg'
             
 if(res.data.code==200){
   
-// this.getuserMsg(res.data.list)
+this.getuserMsg(res.data.list)
   this.$router.push('index/home')
   
 }else{
    alert(res.data.msg)
+   this.getuserMsg(res.data.list)
 }
            })
              

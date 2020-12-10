@@ -81,16 +81,38 @@ const router = new Router({
         {
           path: 'home',
           component:home,
-        }, {
-          path: '',
+        }, 
+        ...indexRouters,
+        {
+          path: '*',
           redirect:'home'
         },
-        ...indexRouters
       ]
     },
   ]
 })
-//全局守卫
-//啦啦啦啦啦啦
+// 全局守卫
+router.beforeEach((to, from, next) => {
+  var list = sessionStorage.getItem('list')
+  // 如果要去的是登录页面
+ console.log(to);
+  if (to.path == '/login' || to.path == '/') {
+    //如果已经登录 就跳到首页
+    if (list) {
+      next("/index")
+      alert("已经登录")
+    } else {
+      next()
+    }
+  } else {
+    // 如果去的不是登录页面  则判断登录状态， 如果登录了直接next 否则返回登录页
+    if (list) {
+      next()
+    } else {
+      next("/login")
+      alert("请先登录哦!")
+    }
+  }
+})
 
 export default router

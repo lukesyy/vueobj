@@ -10,41 +10,31 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
+
+
           <el-menu-item index="/index/home">
             <i class="el-icon-menu"></i>
             <span slot="title">首页</span>
           </el-menu-item>
-          <el-submenu index="2">
+<div v-for="item in lists.menus" :key="item.id">
+
+
+          <el-submenu :index="'id'+item.id" v-if="item.children">
             <template slot="title">
               <i class="el-icon-setting"></i>
-              <span>系统设置</span>
+              <span>{{item.title}}</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="/index/menu">菜单管理</el-menu-item>
-              <el-menu-item index="/index/role">角色管理</el-menu-item>
-              <el-menu-item index="/index/controller">管理员管理</el-menu-item>
+              <el-menu-item v-for="ele in item.children" :key="ele.id" :index="'/index'+ele.url">{{ele.title}}</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="el-icon-goods"></i>
-              <span>商品管理</span>
-            </template>
-
-            <el-menu-item-group>
-              <el-menu-item index="/index/classify">商品分类</el-menu-item>
-              <el-menu-item index="/index/spec">商品规格</el-menu-item>
-              <el-menu-item index="/index/goods">商品管理</el-menu-item>
-              <el-menu-item index="/index/vip">会员管理</el-menu-item>
-              <el-menu-item index="/index/banner">轮播图管理</el-menu-item>
-              <el-menu-item index="/index/seckill">秒杀活动</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
+ <el-menu-item index="/index/" v-else>{{item.title}}  </el-menu-item>
+</div>
         </el-menu>
       </el-aside>
       <el-container>
         <!-- 头部区域 -->
-        <el-header>Header</el-header>
+        <el-header> <span>{{this.list.username}}</span>  <el-button type="danger" @click="exit">点击退出</el-button> </el-header>
         <!-- 内容区域 -->
         <el-main>
           <!--   二级路由出口       -->
@@ -52,11 +42,56 @@
         </el-main>
       </el-container>
     </el-container>
+
   </div>
 </template>
 
 <script>
-export default {};
+import {mapActions,mapGetters} from 'vuex'
+export default {
+  data() {
+    return {
+      lists:{},
+    }
+  },
+  computed:{
+...mapGetters({
+    list:'login/list'
+  })
+  }
+  ,
+  methods: {
+   ...mapActions({
+getuserMsg:'login/getuserMsg'
+      }),
+ exit() {
+        this.$confirm('即将退出登录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '退出成功!',
+            
+          });
+         
+          sessionStorage.clear();
+          this.$router.push('/login')
+        }).catch(() => {
+                    this.$message({
+            type: 'info',
+            message: '已取消退出'
+          });  
+        });
+      }
+     
+      
+  },
+  mounted() {
+   this.lists = JSON.parse (sessionStorage.getItem('list'))
+  },
+};
 </script>
 
 <style  scoped>

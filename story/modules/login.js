@@ -1,15 +1,13 @@
 
 //通过本地把用户登录信息存到库里
 const state = {
-    list: {}
+    list:   sessionStorage.getItem('list')?JSON.parse(sessionStorage.getItem('list')):null,//请求回来的数据
     
 }
 
 const mutations = {
     setlist(state, obj) {
-        state.list = obj ? obj : {}
-        //如果本地有就存进来 如果没有就默认空对象
-        console.log(obj);
+        state.list = obj
         sessionStorage.setItem('list',JSON.stringify(obj))
     }
 }
