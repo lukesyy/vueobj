@@ -1,12 +1,17 @@
 <template>
   <div id="add">
-    <el-dialog :title="isShow.title" :visible.sync="isShow.isShow" @opened.once="changeEditor">
+    <el-dialog
+      :title="isShow.title"
+      :visible.sync="isShow.isShow"
+      @opened.once="changeEditor"
+    >
       <el-form :model="form">
-
-
-        <el-form-item label="一级分类" :label-width="width" >
-          <el-select v-model="form.first_cateid" placeholder="--请选择--" @change="getChil">
-           
+        <el-form-item label="一级分类" :label-width="width">
+          <el-select
+            v-model="form.first_cateid"
+            placeholder="--请选择--"
+            @change="getChil"
+          >
             <!-- 动态循环添加数据  菜单分类 -->
             <el-option
               v-for="item in cateList"
@@ -17,7 +22,7 @@
           </el-select>
         </el-form-item>
 
-<el-form-item label="二级分类" :label-width="width">
+        <el-form-item label="二级分类" :label-width="width">
           <el-select v-model="form.second_cateid" placeholder="--请选择--">
             <el-option label="顶级菜单" :value="0"></el-option>
             <!-- 动态循环添加数据  菜单分类 -->
@@ -29,7 +34,6 @@
             ></el-option>
           </el-select>
         </el-form-item>
-
 
         <el-form-item label="商品名称" :label-width="width">
           <el-input v-model="form.goodsname" autocomplete="off"></el-input>
@@ -54,9 +58,12 @@
           </el-upload>
         </el-form-item>
 
-<el-form-item label="商品规格" :label-width="width">
-          <el-select v-model="form.specsid" placeholder="--请选择--" @change="getSpecChil">
-           
+        <el-form-item label="商品规格" :label-width="width">
+          <el-select
+            v-model="form.specsid"
+            placeholder="--请选择--"
+            @change="getSpecChil"
+          >
             <!-- 动态循环添加数据  菜单分类 -->
             <el-option
               v-for="item in SpecList"
@@ -67,9 +74,8 @@
           </el-select>
         </el-form-item>
 
-<el-form-item label="规格属性" :label-width="width">
+        <el-form-item label="规格属性" :label-width="width">
           <el-select v-model="form.specsattr" placeholder="--请选择--" multiple>
-           
             <!-- 动态循环添加数据  菜单分类 -->
             <el-option
               v-for="item in secondSpec"
@@ -80,17 +86,15 @@
           </el-select>
         </el-form-item>
 
-
- <el-form-item label="是否新品" :label-width="width">
-          <el-radio v-model="form.isnew" :label="1" >是</el-radio>
-          <el-radio v-model="form.isnew" :label="2" >否</el-radio>
+        <el-form-item label="是否新品" :label-width="width">
+          <el-radio v-model="form.isnew" :label="1">是</el-radio>
+          <el-radio v-model="form.isnew" :label="2">否</el-radio>
         </el-form-item>
 
-<el-form-item label="是否热卖" :label-width="width">
-          <el-radio v-model="form.ishot" :label="1" >是</el-radio>
-          <el-radio v-model="form.ishot" :label="2" >否</el-radio>
+        <el-form-item label="是否热卖" :label-width="width">
+          <el-radio v-model="form.ishot" :label="1">是</el-radio>
+          <el-radio v-model="form.ishot" :label="2">否</el-radio>
         </el-form-item>
-
 
         <el-form-item label="状态" :label-width="width">
           <el-switch
@@ -103,13 +107,10 @@
           </el-switch>
         </el-form-item>
 
-<el-form-item label="商品描述" :label-width="width" >
-         <!-- <textarea v-model="form.description" name="" id="" cols="30" rows="10"></textarea> -->
-         <div id="div1">
-   
-</div>
+        <el-form-item label="商品描述" :label-width="width">
+          <!-- <textarea v-model="form.description" name="" id="" cols="30" rows="10"></textarea> -->
+          <div id="div1"></div>
         </el-form-item>
-
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="hide">取 消</el-button>
@@ -128,30 +129,34 @@ import E from "wangeditor";
 //vuex库
 import { mapActions, mapGetters } from "vuex";
 //请求
-import { reqgoodsAdd, setgoodslise,getGoodsOne } from "../../../util/request.js";
+import {
+  reqgoodsAdd,
+  setgoodslise,
+  getGoodsOne,
+} from "../../../util/request.js";
 export default {
   props: ["isShow"],
   data() {
     return {
-       secondCate: [], //用于存放二级分类
+      secondCate: [], //用于存放二级分类
       secondSpec: [], //用来存放规格属性
       width: "160px",
       imageUrl: null,
       form: {
-        first_cateid: '',
-        second_cateid:'',
+        first_cateid: "",
+        second_cateid: "",
         goodsname: "",
-        price:'',
-        market_price:'',
+        price: "",
+        market_price: "",
         img: "",
-        description:"",
-        specsid:'',
-        specsattr:[],
+        description: "",
+        specsid: "",
+        specsattr: [],
         status: 1,
-        isnew:1,
-        ishot:1,
+        isnew: 1,
+        ishot: 1,
       },
-       defaultProps: {
+      defaultProps: {
         children: "children",
         label: "label",
       },
@@ -162,10 +167,9 @@ export default {
       cateList: "cate/cateList",
       SpecList: "spec/SpecList",
     }),
-    
   },
   methods: {
-      //上传图片
+    //上传图片
     changeImg(e) {
       console.log(e); //这是获取到的文件也就是上传的那张图片
       var file = e.raw;
@@ -176,17 +180,14 @@ export default {
     ...mapActions({
       getCateMsg: "cate/getCateMsg",
       getSpecMsg: "spec/getSpecMsg",
-       getGoodsMsg: "goods/getGoodsMsg",
+      getGoodsMsg: "goods/getGoodsMsg",
     }),
-
 
     //添加
     addrole() {
-       
-      this.form.description = this.editor.txt.html()
-      console.log( this.form.description);
+      this.form.description = this.editor.txt.html();
+      console.log(this.form.description);
       reqgoodsAdd(this.form).then((res) => {
-       
         this.getGoodsMsg();
         this.hide();
       });
@@ -194,78 +195,77 @@ export default {
     //更改form
     //修改的时候的from
     restForm(id) {
-     
-     
-      getGoodsOne({id:id}).then(res=>{
-
+      getGoodsOne({ id: id }).then((res) => {
         this.form = res.data.list;
         this.form.id = id;
-        this.imageUrl = this.$preImg+res.data.list.img;
+        this.imageUrl = this.$preImg + res.data.list.img;
         this.form.specsattr = this.form.specsattr.split(",");
-       this.secondSpec = this.SpecList.find(item=>{
-  return  this.form.specsid == item.id
-}).attrs
-this. getChil()
- this.editor.txt.html(this.form.description)
-      })
+
+        //设置 规格属性
+        this.secondSpec = this.SpecList.find((item) => {
+          return this.form.specsid == item.id;
+        }).attrs;
+        // 获取二级菜单
+        this.getChil();
+        //设置 富文本
+        this.editor.txt.html(this.form.description);
+      });
+      log
     },
-   
+
     //点击修改提交
     setrole() {
-this.form.description = this.editor.txt.html()
-      
+      this.form.description = this.editor.txt.html();
+
       setgoodslise(this.form);
       this.getGoodsMsg();
       this.hide();
     },
-     // 页面加载完成创建富文本编辑器
+    // 页面加载完成创建富文本编辑器
     changeEditor() {
       this.editor = new E("#div1");
       this.editor.create();
-      this.editor.txt.html(this.form.description)
+      this.editor.txt.html(this.form.description);
     },
     hide() {
       this.isShow.isShow = false;
     },
-//获取二级菜单
-    getChil(){
-
-this.secondCate = this. cateList.find(item=>{
-  return  this.form.first_cateid == item.id
-}).children
-
+    //获取二级菜单
+    getChil() {
+      this.secondCate = this.cateList.find((item) => {
+        return this.form.first_cateid == item.id;
+      }).children;
     },
     //获取商品属性里的属性规格
-    getSpecChil(){
-       this.form.specsattr = [];
-this.secondSpec = this.SpecList.find(item=>{
-  return  this.form.specsid == item.id
-}).attrs
-
+    getSpecChil() {
+      this.form.specsattr = [];
+      this.secondSpec = this.SpecList.find((item) => {
+        return this.form.specsid == item.id;
+      }).attrs;
     },
     //初始化 from 清空
     reForm() {
-      this.editor.txt.html("  ")
-        this.imageUrl =''
+      this.editor.txt.html("  ");
+      this.imageUrl = "";
       this.form = {
-       first_cateid: '',
-        second_cateid:'',
+        first_cateid: "",
+        second_cateid: "",
         goodsname: "",
-        price:'',
-        market_price:'',
+        price: "",
+        market_price: "",
         img: "",
-        description:"",
-        specsid:'',
-        specsattr:[],
+        description: "",
+        specsid: "",
+        specsattr: [],
         status: 1,
-        isnew:1,
-        ishot:1,
+        isnew: 1,
+        ishot: 1,
       };
     },
   },
 
   mounted() {
-    this.getSpecMsg()
+    this.getSpecMsg();
     this.getCateMsg();
   },
   props: ["isShow"],

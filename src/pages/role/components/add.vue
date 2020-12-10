@@ -9,7 +9,7 @@
           <el-tree
             :data="menuList"
             show-checkbox
-            node-key="title"
+            node-key="id"
             ref="tree"
             :props="{ children: 'children', label: 'title' }"
           >

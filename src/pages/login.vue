@@ -30,12 +30,12 @@ getuserMsg:'login/getuserMsg'
       }),
         goIndex(){
            postlogin(this.user).then(res=>{
-            this.$router.push('index/home')
+            
 if(res.data.code==200){
   
 // this.getuserMsg(res.data.list)
+  this.$router.push('index/home')
   
-  console.log(res);
 }else{
    alert(res.data.msg)
 }
